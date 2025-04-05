@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Estrutura da lista Enc
+// Resolvi usar essa estrutura por ser mais simples
 typedef struct noSimplesEnc
 {
     int valor;
@@ -8,7 +10,15 @@ typedef struct noSimplesEnc
 
 } SimplesEnc;
 
-void insereFinalLaco(SimplesEnc **Lista, int dado)
+void Insere_Inicio(SimplesEnc **lista, int valor)
+{
+    SimplesEnc *novo = malloc(sizeof(SimplesEnc));
+    novo->valor = valor;
+    novo->prox = *lista;
+    *lista = novo;
+}
+
+void insere_Fim_Itr(SimplesEnc **Lista, int dado)
 {
     SimplesEnc *novoNo = malloc(sizeof(SimplesEnc));
     novoNo->valor = dado;
@@ -29,7 +39,7 @@ void insereFinalLaco(SimplesEnc **Lista, int dado)
     aux->prox = novoNo;
 }
 
-void insereFinalRec(SimplesEnc **Lista, int dado)
+void insere_Fim_Rec(SimplesEnc **Lista, int dado)
 {
     if (*Lista == NULL)
     {
@@ -38,10 +48,10 @@ void insereFinalRec(SimplesEnc **Lista, int dado)
         (*Lista)->valor = dado;
     }
     else
-        insereFinalRec(&((*Lista)->prox), dado);
+        insere_Fim_Rec(&((*Lista)->prox), dado);
 }
 
-void Insere_Posicao(SimplesEnc **lista, int valor, int posicao)
+void Insere_Posicao_Rec(SimplesEnc **lista, int valor, int posicao)
 {
     if (posicao < 0)
     {
@@ -81,9 +91,9 @@ void imprime(SimplesEnc *Lista)
 int main()
 {
     SimplesEnc *Lista = NULL;
-    insereFinalRec(&Lista, 1);
-    insereFinalRec(&Lista, 2);
-    insereFinalRec(&Lista, 3);
+    insere_Fim_Rec(&Lista, 1);
+    insere_Fim_Rec(&Lista, 2);
+    insere_Fim_Rec(&Lista, 3);
     imprime(Lista);
     Insere_Posicao(&Lista, 15, 1);
     printf("\n");
