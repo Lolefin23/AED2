@@ -8,6 +8,9 @@ typedef struct no
 } No;
 
 // Insere um novo nó no início da lista
+// ================== INSERÇÃO ==================
+
+// Insere no início da lista
 void Insere_Inicio(No **lista, int valor)
 {
     No *novo = malloc(sizeof(No)); // Aloca memória para o novo nó
@@ -16,7 +19,7 @@ void Insere_Inicio(No **lista, int valor)
     *lista = novo;                 // Atualiza o início da lista
 }
 
-// Insere um novo nó no final da lista de forma iterativa
+// Insere no final da lista (iterativo)
 void insere_Fim_Itr(No **Lista, int dado)
 {
     No *novoNo = malloc(sizeof(No)); // Cria o novo nó
@@ -39,7 +42,7 @@ void insere_Fim_Itr(No **Lista, int dado)
     aux->prox = novoNo; // Liga o último nó ao novo nó
 }
 
-// Insere um novo nó no final da lista de forma recursiva
+// Insere no final da lista (recursivo)
 void insere_Fim_Rec(No **Lista, int dado)
 {
     if (*Lista == NULL) // Caso base: fim da lista
@@ -52,7 +55,7 @@ void insere_Fim_Rec(No **Lista, int dado)
         insere_Fim_Rec(&((*Lista)->prox), dado); // Chama recursivamente no próximo nó
 }
 
-// Insere um novo nó em uma posição específica da lista (recursivamente)
+// Insere em uma posição específica (recursivo)
 void Insere_Posicao_Rec(No **lista, int valor, int posicao)
 {
     if (posicao < 0) // Verifica se a posição é inválida
@@ -80,7 +83,47 @@ void Insere_Posicao_Rec(No **lista, int valor, int posicao)
     Insere_Posicao_Rec(&(*lista)->prox, valor, posicao - 1);
 }
 
-// Imprime todos os elementos da lista encadeada
+// ================== REMOÇÃO ==================
+
+// Remove um valor da lista (recursivo)
+void Remove_Val_Rec(No **Lista, int val)
+{
+    if ((*Lista)->valor == val)
+    {
+        No *aux = *Lista;        // Guarda o nó que será removido
+        *Lista = (*Lista)->prox; // Pula o nó da lista
+        free(aux);               // Libera memória
+    }
+    else
+    {
+        Remove_Val_Rec(&(*Lista)->prox, val); // Chamada recursiva
+    }
+}
+
+// ================== BUSCA ==================
+
+// Busca um valor na lista (recursivo)
+void buscar_Valor_Rec(No *Lista, int valor, int *resp)
+{
+    if (Lista == NULL) // Caso base: não encontrado
+    {
+        *resp = 0;
+        return;
+    }
+
+    if (Lista->valor == valor) // Encontrado
+    {
+        *resp = 1;
+        return;
+    }
+
+    // Chamada recursiva
+    buscar_Valor_Rec(Lista->prox, valor, resp);
+}
+
+// ================== UTILITÁRIOS ==================
+
+// Imprime a lista
 void imprime(No *Lista)
 {
     No *aux = Lista;
@@ -96,40 +139,7 @@ void imprime(No *Lista)
     printf("%d\n", aux->valor);
 }
 
-// Busca recursivamente um valor na lista e armazena o resultado em *resp
-void buscar_Valor_Rec(No *Lista, int valor, int *resp)
-{
-    if (Lista == NULL) // Caso base: fim da lista sem encontrar
-    {
-        *resp = 0;
-        return;
-    }
-
-    if (Lista->valor == valor) // Valor encontrado
-    {
-        *resp = 1;
-        return;
-    }
-
-    // Chamada recursiva no próximo nó
-    buscar_Valor_Rec(Lista->prox, valor, resp);
-}
-
-// Remove um valor nó com valor valo
-void Remove_Val_Rec(No **Lista, int val)
-{
-    if ((*Lista)->valor == val)
-    {
-        No *aux = *Lista;        // Criamos um nó auxiliar para guardar o endereço do que queremos remover
-        *Lista = (*Lista)->prox; // Tiramos o que queremos remover da lista
-        free(aux);               // Deleta o que queremos
-    }
-    else
-    {
-        Remove_Val_Rec(&(*Lista)->prox, val); // Chama recursivamente
-    }
-}
-
+// Calcula o tamanho da lista (recursivo)
 void tamanho_Lista_Rec(No *Lista, int *resp)
 {
     if (Lista == NULL)
