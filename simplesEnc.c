@@ -7,7 +7,6 @@ typedef struct no
     struct no *prox; // Ponteiro para o próximo nó da lista
 } No;
 
-// Insere um novo nó no início da lista
 // ================== INSERÇÃO ==================
 
 // Insere no início da lista
@@ -43,7 +42,7 @@ void insere_Fim_Itr(No **Lista, int dado)
 }
 
 // Insere no final da lista (recursivo)
-void insere_Fim_Rec(No **Lista, int dado)
+void Insere_Fim_Rec(No **Lista, int dado)
 {
     if (*Lista == NULL) // Caso base: fim da lista
     {
@@ -52,7 +51,7 @@ void insere_Fim_Rec(No **Lista, int dado)
         (*Lista)->valor = dado;
     }
     else
-        insere_Fim_Rec(&((*Lista)->prox), dado); // Chama recursivamente no próximo nó
+        Insere_Fim_Rec(&((*Lista)->prox), dado); // Chama recursivamente no próximo nó
 }
 
 // Insere em uma posição específica (recursivo)
@@ -97,6 +96,26 @@ void Remove_Val_Rec(No **Lista, int val)
     else
     {
         Remove_Val_Rec(&(*Lista)->prox, val); // Chamada recursiva
+    }
+}
+
+void remove_Intervalo(No **Lista, int ini, int fim)
+{
+    if (*Lista == NULL || ini > fim)
+    {
+        return;
+    }
+
+    if (ini == 0)
+    {
+        No *aux = *Lista;        // Guarda o nó que será removido
+        *Lista = (*Lista)->prox; // Pula o nó da lista
+        free(aux);               // Libera memória
+        remove_Intervalo(&(*Lista), 0, fim - 1);
+    }
+    else
+    {
+        remove_Intervalo(&(*Lista), ini - 1, fim - 1);
     }
 }
 
@@ -151,23 +170,67 @@ void tamanho_Lista_Rec(No *Lista, int *resp)
     tamanho_Lista_Rec(Lista->prox, resp);
 }
 
+// Compara duas listas para ver se são iguais
+
+void compara_Rec(No *Lista1, No *Lista2, int *res)
+{
+    if (Lista1 == NULL && Lista2 == NULL)
+    {
+        *res = 1;
+        return;
+    }
+
+    if (Lista1 == NULL || Lista2 == NULL)
+    {
+        *res = 0;
+        return;
+    }
+
+    if (Lista1->valor != Lista2->valor)
+    {
+        *res = 0;
+        return;
+    }
+
+    compara_Rec(Lista1->prox, Lista2->prox, res);
+}
+
+// ================== ORDENAÇÃO ==================
+
 int main()
 {
-    No *Lista = NULL;
-    insere_Fim_Rec(&Lista, 1);
-    insere_Fim_Rec(&Lista, 2);
-    insere_Fim_Rec(&Lista, 3);
-    imprime(Lista);
-    Insere_Posicao_Rec(&Lista, 15, 1);
-    printf("\n");
-    imprime(Lista);
+    // No *Lista = NULL;
+    // Insere_Fim_Rec(&Lista, 1);
+    // Insere_Fim_Rec(&Lista, 2);
+    // Insere_Fim_Rec(&Lista, 3);
+    // imprime(Lista);
+    // Insere_Posicao_Rec(&Lista, 15, 1);
+    // printf("\n");
+    // imprime(Lista);
+    // int resp;
+    // buscar_Valor_Rec(Lista, 115, &resp);
+    // printf("\n%d\n", resp);
+    // Remove_Val_Rec(&Lista, 15);
+    // printf("\n");
+    // imprime(Lista);
+    // resp = 0;
+    // tamanho_Lista_Rec(Lista, &resp);
+    // printf("%d \n", resp);
+
+    No *lista1 = NULL;
+    No *lista2 = NULL;
     int resp;
-    buscar_Valor_Rec(Lista, 115, &resp);
+    Insere_Fim_Rec(&lista1, 10);
+    Insere_Fim_Rec(&lista1, 20);
+    Insere_Fim_Rec(&lista1, 30);
+
+    Insere_Fim_Rec(&lista2, 10);
+    Insere_Fim_Rec(&lista2, 20);
+    Insere_Fim_Rec(&lista2, 30);
+
+    compara_Rec(lista1, lista2, &resp);
+
     printf("\n%d\n", resp);
-    Remove_Val_Rec(&Lista, 15);
-    printf("\n");
-    imprime(Lista);
-    resp = 0;
-    tamanho_Lista_Rec(Lista, &resp);
-    printf("%d \n", resp);
+
+    return 0;
 }
