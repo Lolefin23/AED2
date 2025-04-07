@@ -75,17 +75,18 @@ void Insere_Posicao_Rec(No **lista, int valor, int posicao)
         return;
     }
 
-    Insere_Posicao(&(*lista)->prox, valor, posicao - 1);
+    Insere_Posicao_Rec(&(*lista)->prox, valor, posicao - 1);
 }
 
 void imprime(No *Lista)
 {
     No *aux = Lista;
-    while (aux != NULL)
+    while (aux->prox != NULL)
     {
         printf("%d -> ", aux->valor);
         aux = aux->prox;
     }
+    printf("%d", aux->valor);
 }
 
 void buscar_Valor_Rec(No *Lista, int valor, int *resp)
@@ -93,13 +94,15 @@ void buscar_Valor_Rec(No *Lista, int valor, int *resp)
     if (Lista == NULL)
     {
         *resp = 0;
+        return;
     }
     if (Lista->valor == valor)
     {
         *resp = 1;
+        return;
     }
 
-    buscar_Valor_Rec(Lista->prox, valor, *resp);
+    buscar_Valor_Rec(Lista->prox, valor, resp);
 }
 
 int main()
@@ -112,4 +115,8 @@ int main()
     Insere_Posicao_Rec(&Lista, 15, 1);
     printf("\n");
     imprime(Lista);
+    int resp;
+    buscar_Valor_Rec(Lista, 115, &resp);
+
+    printf("\n%d\n", resp);
 }
