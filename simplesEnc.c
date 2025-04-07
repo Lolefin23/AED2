@@ -120,14 +120,25 @@ void Remove_Val_Rec(No **Lista, int val)
 {
     if ((*Lista)->valor == val)
     {
-        No *aux = *Lista; // Criamos um nó auxiliar para guardar o endereço do que queremos remover
-        *Lista = (*Lista)->prox; // Tiramos o que queremos remover da lista 
-        free(aux); // Deleta o que queremos 
+        No *aux = *Lista;        // Criamos um nó auxiliar para guardar o endereço do que queremos remover
+        *Lista = (*Lista)->prox; // Tiramos o que queremos remover da lista
+        free(aux);               // Deleta o que queremos
     }
     else
     {
-        Remove_Val_Rec(&(*Lista)->prox, val);
+        Remove_Val_Rec(&(*Lista)->prox, val); // Chama recursivamente
     }
+}
+
+void tamanho_Lista_Rec(No *Lista, int *resp)
+{
+    if (Lista == NULL)
+    {
+        return;
+    }
+    (*resp)++;
+
+    tamanho_Lista_Rec(Lista->prox, resp);
 }
 
 int main()
@@ -146,4 +157,7 @@ int main()
     Remove_Val_Rec(&Lista, 15);
     printf("\n");
     imprime(Lista);
+    resp = 0;
+    tamanho_Lista_Rec(Lista, &resp);
+    printf("%d \n", resp);
 }
