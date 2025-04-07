@@ -88,6 +88,20 @@ void imprime(SimplesEnc *Lista)
     }
 }
 
+int buscar_Valor_Rec(SimplesEnc *Lista, int valor)
+{
+    if (Lista == NULL)
+    {
+        return;
+    }
+    if (Lista->valor == valor)
+    {
+        return 1;
+    }
+
+    buscar_Valor_Rec(Lista->prox, valor);
+}
+
 int main()
 {
     SimplesEnc *Lista = NULL;
