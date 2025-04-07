@@ -88,18 +88,18 @@ void imprime(No *Lista)
     }
 }
 
-int buscar_Valor_Rec(No *Lista, int valor)
+void buscar_Valor_Rec(No *Lista, int valor, int *resp)
 {
     if (Lista == NULL)
     {
-        return;
+        *resp = 0;
     }
     if (Lista->valor == valor)
     {
-        return 1;
+        *resp = 1;
     }
 
-    buscar_Valor_Rec(Lista->prox, valor);
+    buscar_Valor_Rec(Lista->prox, valor, *resp);
 }
 
 int main()
@@ -109,7 +109,7 @@ int main()
     insere_Fim_Rec(&Lista, 2);
     insere_Fim_Rec(&Lista, 3);
     imprime(Lista);
-    Insere_Posicao(&Lista, 15, 1);
+    Insere_Posicao_Rec(&Lista, 15, 1);
     printf("\n");
     imprime(Lista);
 }
