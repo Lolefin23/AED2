@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 typedef struct no
 {
     int valor;       // Valor armazenado no nó
@@ -94,7 +93,7 @@ void imprime(No *Lista)
     }
 
     // Imprime o último valor (sem seta depois)
-    printf("%d", aux->valor);
+    printf("%d\n", aux->valor);
 }
 
 // Busca recursivamente um valor na lista e armazena o resultado em *resp
@@ -116,6 +115,21 @@ void buscar_Valor_Rec(No *Lista, int valor, int *resp)
     buscar_Valor_Rec(Lista->prox, valor, resp);
 }
 
+// Remove um valor nó com valor valo
+void Remove_Val_Rec(No **Lista, int val)
+{
+    if ((*Lista)->valor == val)
+    {
+        No *aux = *Lista; // Criamos um nó auxiliar para guardar o endereço do que queremos remover
+        *Lista = (*Lista)->prox; // Tiramos o que queremos remover da lista 
+        free(aux); // Deleta o que queremos 
+    }
+    else
+    {
+        Remove_Val_Rec(&(*Lista)->prox, val);
+    }
+}
+
 int main()
 {
     No *Lista = NULL;
@@ -128,6 +142,8 @@ int main()
     imprime(Lista);
     int resp;
     buscar_Valor_Rec(Lista, 115, &resp);
-
     printf("\n%d\n", resp);
+    Remove_Val_Rec(&Lista, 15);
+    printf("\n");
+    imprime(Lista);
 }
