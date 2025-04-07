@@ -3,24 +3,24 @@
 
 // Estrutura da lista Enc
 // Resolvi usar essa estrutura por ser mais simples
-typedef struct noSimplesEnc
+typedef struct no
 {
     int valor;
-    struct noSimplesEnc *prox;
+    struct no *prox;
 
-} SimplesEnc;
+} No;
 
-void Insere_Inicio(SimplesEnc **lista, int valor)
+void Insere_Inicio(No **lista, int valor)
 {
-    SimplesEnc *novo = malloc(sizeof(SimplesEnc));
+    No *novo = malloc(sizeof(No));
     novo->valor = valor;
     novo->prox = *lista;
     *lista = novo;
 }
 
-void insere_Fim_Itr(SimplesEnc **Lista, int dado)
+void insere_Fim_Itr(No **Lista, int dado)
 {
-    SimplesEnc *novoNo = malloc(sizeof(SimplesEnc));
+    No *novoNo = malloc(sizeof(No));
     novoNo->valor = dado;
     novoNo->prox = NULL;
 
@@ -30,7 +30,7 @@ void insere_Fim_Itr(SimplesEnc **Lista, int dado)
         return;
     }
 
-    SimplesEnc *aux = *Lista;
+    No *aux = *Lista;
 
     while (aux->prox != NULL)
     {
@@ -39,11 +39,11 @@ void insere_Fim_Itr(SimplesEnc **Lista, int dado)
     aux->prox = novoNo;
 }
 
-void insere_Fim_Rec(SimplesEnc **Lista, int dado)
+void insere_Fim_Rec(No **Lista, int dado)
 {
     if (*Lista == NULL)
     {
-        *Lista = malloc(sizeof(SimplesEnc));
+        *Lista = malloc(sizeof(No));
         (*Lista)->prox = NULL;
         (*Lista)->valor = dado;
     }
@@ -51,7 +51,7 @@ void insere_Fim_Rec(SimplesEnc **Lista, int dado)
         insere_Fim_Rec(&((*Lista)->prox), dado);
 }
 
-void Insere_Posicao_Rec(SimplesEnc **lista, int valor, int posicao)
+void Insere_Posicao_Rec(No **lista, int valor, int posicao)
 {
     if (posicao < 0)
     {
@@ -68,7 +68,7 @@ void Insere_Posicao_Rec(SimplesEnc **lista, int valor, int posicao)
     if (posicao == 0)
     {
 
-        SimplesEnc *novo = (SimplesEnc *)malloc(sizeof(SimplesEnc));
+        No *novo = (No *)malloc(sizeof(No));
         novo->valor = valor;
         novo->prox = *lista;
         *lista = novo;
@@ -78,9 +78,9 @@ void Insere_Posicao_Rec(SimplesEnc **lista, int valor, int posicao)
     Insere_Posicao(&(*lista)->prox, valor, posicao - 1);
 }
 
-void imprime(SimplesEnc *Lista)
+void imprime(No *Lista)
 {
-    SimplesEnc *aux = Lista;
+    No *aux = Lista;
     while (aux != NULL)
     {
         printf("%d -> ", aux->valor);
@@ -88,7 +88,7 @@ void imprime(SimplesEnc *Lista)
     }
 }
 
-int buscar_Valor_Rec(SimplesEnc *Lista, int valor)
+int buscar_Valor_Rec(No *Lista, int valor)
 {
     if (Lista == NULL)
     {
@@ -104,7 +104,7 @@ int buscar_Valor_Rec(SimplesEnc *Lista, int valor)
 
 int main()
 {
-    SimplesEnc *Lista = NULL;
+    No *Lista = NULL;
     insere_Fim_Rec(&Lista, 1);
     insere_Fim_Rec(&Lista, 2);
     insere_Fim_Rec(&Lista, 3);
