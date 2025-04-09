@@ -211,6 +211,31 @@ void Compara_Rec(No *Lista1, No *Lista2, int *res)
     Compara_Rec(Lista1->prox, Lista2->prox, res);
 }
 
+// Inverte uma lista
+void Inversao_Lista_Rec(No **Lista)
+{
+    if (*Lista == NULL || (*Lista)->prox == NULL)
+    {
+        return;
+    }
+    No *atual, *resto;
+    atual = *Lista;
+    resto = atual->prox;
+
+    Inversao_Lista_Rec(&resto);
+
+    atual->prox->prox = atual;
+    atual->prox = NULL;
+
+    *Lista = resto;
+}
+
+// Intercala Listas ordenadas
+
+No Intercala_Ordenado(No *Lista1, No *Lista2)
+{
+}
+
 // ================== ORDENAÇÃO ==================
 
 int main()
@@ -218,27 +243,33 @@ int main()
 
     No *Lista = NULL;
     Insere_Fim_Rec(&Lista, 0);
-    Insere_Fim_Rec(&Lista, 1);
+   // Insere_Fim_Rec(&Lista, 1);
     Insere_Fim_Rec(&Lista, 2);
-    Insere_Fim_Rec(&Lista, 3);
+    //Insere_Fim_Rec(&Lista, 3);
     Insere_Fim_Rec(&Lista, 4);
-    // Insere_Fim_Rec(&Lista, 5);
+    //Insere_Fim_Rec(&Lista, 5);
     Insere_Fim_Rec(&Lista, 6);
-    Insere_Fim_Rec(&Lista, 7);
+    //Insere_Fim_Rec(&Lista, 7);
     Insere_Fim_Rec(&Lista, 8);
-    Insere_Fim_Rec(&Lista, 9);
+    //Insere_Fim_Rec(&Lista, 9);
     Insere_Fim_Rec(&Lista, 10);
 
     Imprime(Lista);
 
-    Remove_Intervalo_Rec(&Lista, 0, 6);
-    Imprime(Lista);
-    Insere_Ordenado_Rec(&Lista, 5);
-    Insere_Ordenado_Rec(&Lista, 15);
-    Insere_Ordenado_Rec(&Lista, 100);
-    Insere_Ordenado_Rec(&Lista, 75);
-    Insere_Ordenado_Rec(&Lista, 150);
-    Imprime(Lista);
+    No *Lista2 = NULL;
+    //Insere_Fim_Rec(&Lista2, 0);
+    Insere_Fim_Rec(&Lista2, 1);
+    //Insere_Fim_Rec(&Lista2, 2);
+    Insere_Fim_Rec(&Lista2, 3);
+    //Insere_Fim_Rec(&Lista2, 4);
+    Insere_Fim_Rec(&Lista2, 5);
+    //Insere_Fim_Rec(&Lista2, 6);
+    Insere_Fim_Rec(&Lista2, 7);
+    //Insere_Fim_Rec(&Lista2, 8);
+    Insere_Fim_Rec(&Lista2, 9);
+    //Insere_Fim_Rec(&Lista2, 10);
+
+    Imprime(Lista2);
 
     return 0;
 }
