@@ -24,32 +24,108 @@ void Insere_Comeco(No **Lista, int valor)
     novoNo->ant = NULL;
     novoNo->valor = valor;
     (*Lista)->ant = novoNo;
+    (*Lista) = novoNo;
     return;
+}
+
+void Remove_Fim_Rec(No **Lista)
+{
+    if (*Lista == NULL)
+    {
+        return;
+    }
+
+    if ((*Lista)->prox == NULL)
+    {
+        free(*Lista);
+        *Lista = NULL;
+        return;
+    }
+    if ((*Lista)->prox != NULL && (*Lista)->prox->prox == NULL)
+    {
+        if ((*Lista)->prox->prox == NULL)
+        {
+            No *temp = (*Lista)->prox;
+            (*Lista)->prox = NULL;
+            free(temp);
+            return;
+        }
+    }
+    Remove_Fim_Rec(&(*Lista)->prox);
+}
+
+void Remove_Valor_Rec(No **Lista, int valor)
+{
+    // se a função for nula ela retorna
+    if (*Lista == NULL)
+    {
+        return;
+    }
+    // se for o começo da lista
+
+       if ((*Lista)->valor == valor && (*Lista)->ant == NULL)
+    {
+
+        if ((*Lista)->prox == NULL)
+        {
+            free(*Lista);
+            *Lista = NULL;
+            return;
+        }
+         No *temp = *Lista;
+        (*Lista)->prox->ant = NULL;
+        *Lista = (*Lista)->prox;
+        free(temp);
+        Remove_Valor_Rec(&(*Lista), valor);
+        return;
+    }
+
+    if ((*Lista)->valor == valor && (*Lista)->ant != NULL && (*Lista)->prox != NULL)
+    {
+        No *temp = *Lista;
+        (*Lista)->prox->ant = (*Lista)->ant;
+        (*Lista)->ant->prox = (*Lista)->prox;
+        free((temp));
+    }
+
+    if ((*Lista)->valor == valor && (*Lista)->prox == NULL)
+    {
+        No *temp = *Lista;
+        (*Lista)->ant->prox = NULL;
+        *Lista = (*Lista)->ant;
+        free(temp);
+        Remove_Valor_Rec(&(*Lista)->prox, valor);
+        return;
+    }
+
+    Remove_Valor_Rec(&(*Lista)->prox, valor);
 }
 
 void imprime(No *Lista)
 {
-    No *aux = Lista;
-    while (aux != NULL)
+    if (Lista == NULL)
     {
-        printf("%d -> ", aux->valor);
-        aux = aux->prox;
+        printf("NULL\n");
+        return;
     }
+
+    printf("%d -> ", Lista->valor);
+    imprime(Lista->prox);
 }
 
 int main()
 {
     No *Lista = NULL;
-    Insere_Comeco(&Lista, 10);
-    Insere_Comeco(&Lista, 9);
-    Insere_Comeco(&Lista, 8);
-    Insere_Comeco(&Lista, 7);
-    Insere_Comeco(&Lista, 6);
-    Insere_Comeco(&Lista, 5);
+
     Insere_Comeco(&Lista, 4);
     Insere_Comeco(&Lista, 3);
     Insere_Comeco(&Lista, 2);
     Insere_Comeco(&Lista, 1);
 
+    Remove_Valor_Rec(&Lista, 4);
+    imprime(Lista);
+    Remove_Valor_Rec(&Lista, 2);
+    imprime(Lista);
+    Remove_Valor_Rec(&Lista, 1);
     imprime(Lista);
 }

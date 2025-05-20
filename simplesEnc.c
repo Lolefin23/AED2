@@ -243,31 +243,31 @@ int main()
 
     No *Lista = NULL;
     Insere_Fim_Rec(&Lista, 0);
-   // Insere_Fim_Rec(&Lista, 1);
+    // Insere_Fim_Rec(&Lista, 1);
     Insere_Fim_Rec(&Lista, 2);
-    //Insere_Fim_Rec(&Lista, 3);
+    // Insere_Fim_Rec(&Lista, 3);
     Insere_Fim_Rec(&Lista, 4);
-    //Insere_Fim_Rec(&Lista, 5);
+    // Insere_Fim_Rec(&Lista, 5);
     Insere_Fim_Rec(&Lista, 6);
-    //Insere_Fim_Rec(&Lista, 7);
+    // Insere_Fim_Rec(&Lista, 7);
     Insere_Fim_Rec(&Lista, 8);
-    //Insere_Fim_Rec(&Lista, 9);
+    // Insere_Fim_Rec(&Lista, 9);
     Insere_Fim_Rec(&Lista, 10);
 
     Imprime(Lista);
 
     No *Lista2 = NULL;
-    //Insere_Fim_Rec(&Lista2, 0);
+    // Insere_Fim_Rec(&Lista2, 0);
     Insere_Fim_Rec(&Lista2, 1);
-    //Insere_Fim_Rec(&Lista2, 2);
+    // Insere_Fim_Rec(&Lista2, 2);
     Insere_Fim_Rec(&Lista2, 3);
-    //Insere_Fim_Rec(&Lista2, 4);
+    // Insere_Fim_Rec(&Lista2, 4);
     Insere_Fim_Rec(&Lista2, 5);
-    //Insere_Fim_Rec(&Lista2, 6);
+    // Insere_Fim_Rec(&Lista2, 6);
     Insere_Fim_Rec(&Lista2, 7);
-    //Insere_Fim_Rec(&Lista2, 8);
+    // Insere_Fim_Rec(&Lista2, 8);
     Insere_Fim_Rec(&Lista2, 9);
-    //Insere_Fim_Rec(&Lista2, 10);
+    // Insere_Fim_Rec(&Lista2, 10);
 
     Imprime(Lista2);
 
