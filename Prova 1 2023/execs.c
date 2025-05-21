@@ -81,7 +81,7 @@ void deixaDupl(Lista **point)
             Lista *temp = p;
             if (ant == NULL)
             {
-                
+                (*point)->prox  
             }
             
 
